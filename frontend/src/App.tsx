@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import './App.css';
 import YearSelection from './components/year-selection';
 import SearchPanel from './components/search-panel';
 import Movies from './components/movies';

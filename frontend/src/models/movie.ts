@@ -9,3 +9,13 @@ export interface IMovie {
   worldwideGross: string;
   year: number;
 }
+
+export interface ISearchModel {
+  year?: number;
+  genre?: string;
+}
+
+export interface ActionResult {
+  status: 'SUCCESS' | 'ERROR';
+  error?: any;
+}

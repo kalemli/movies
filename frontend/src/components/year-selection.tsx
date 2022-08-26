@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { YEARS } from '../constants';
+import { MovieContext } from '../context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function YearSelection() {
   const classes = useStyles();
-  const [selectedYear, selectYear] = React.useState<number>();
+  const { search, searchModel } = useContext(MovieContext);
 
-  const handleYearSelection = (year: number) => (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    selectYear(year);
+  const handleYearSelection = (year?: number) => (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    search({ ...searchModel, year });
   };
 
   return (
@@ -37,8 +38,11 @@ export default function YearSelection() {
       }
       className={classes.root}
     >
+      <ListItem button selected={!searchModel.year} onClick={handleYearSelection(undefined)}>
+        <ListItemText primary="ALL YEARS" />
+      </ListItem>
       {YEARS.map(year => (
-        <ListItem button key={year} selected={selectedYear === year} onClick={handleYearSelection(year)}>
+        <ListItem button key={year} selected={searchModel.year === year} onClick={handleYearSelection(year)}>
           <ListItemText primary={year} />
         </ListItem>
       ))}

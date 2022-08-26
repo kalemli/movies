@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import csv from 'csvtojson/v2';
-import { IMoive } from '../../models/movie';
+import { IMovie } from '../../models/movie';
 
-let movies: IMoive[] = [];
+let movies: IMovie[] = [];
 
 export const search = async (req: Request, res: Response) => {
   const { year, genre } = req.query;
   let result = movies;
 
   result = movies.filter(
-    m => (!year || m.Year === +year) && (!genre || m.Genre.toLowerCase().includes(genre.toString().toLowerCase()))
+    m => (!year || m.year === +year) && (!genre || m.genre.toLowerCase().includes(genre.toString().toLowerCase()))
   );
 
   res.status(200).send(result);
